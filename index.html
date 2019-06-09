@@ -9,7 +9,9 @@
 </head>
 <body>
 	<h1 align="center">Enter the amount of Expense :</h1>
-	<input id="inputAmount" type="text"></input>
+	<input id="inputAmount" type="text">
+	<br>
+	<input id="descElement" type="text">
 	<br>
 	<div class="button">
 		<button id="btnAddExpense">Add</button>
@@ -19,26 +21,54 @@
 	<h3 id="headingTotal">0</h3>
 	<br>
 	<script>
+		//get the heading element
 		const headingEl=document.querySelector("#headingTotal");
-		let totalExpense = 0;
+		//get the description of the element
+		const inputDescEl=document.querySelector("#descElement");
+		//get the add button selector
+		const element=document.querySelector("#btnAddExpense");
+		
+		//get the reset button selector
 		const res=document.querySelector("#btnReset");
-		// set the headingElement to TotalExpense
+		//select the inputAmount text selector
+		const inputElement=document.querySelector("#inputAmount");
+		//initialize total expense to zero initially
+		let totalExpense = 0;
+		//set the heading element to totalExpense
 		headingEl.textContent=totalExpense;
-		console.log(totalExpense);
-		function addExpenseToTotal(){
-			const inputElement=document.querySelector("#inputAmount");
+
+		//all expenses at One Place
+		const allExpenses=[];
+		//onButtonClick add inputAmount to TotalExpense
+		function addExpenseToTotal()
+		{
+			const expenseItem={};
+			//read value from inputAmount
 			const textAmount=inputElement.value;
+			//convert it into number
 			const expense=parseInt(textAmount, 10);
+			//read the description from inputDesc
+			const textDesc=inputDescEl.value;
+			//put it in an object
+			expenseItem.desc=textDesc;
+			expenseItem.amount=expense;
+
+			allExpenses.push(expenseItem);
+			
+			console.clear();
+			console.table(allExpenses);
+			//add that value to total expense
 			totalExpense+=expense;
+			//set the heading content to total expense
 			headingEl.textContent=totalExpense;
 		}
 		function resetText()
 		{
 			headingEl.textContent=0;
 			document.getElementById("inputAmount").value="0";
+			document.getElementById("descElement").value="";
 			totalExpense=0;
 		}
-		const element=document.querySelector("#btnAddExpense");
 		element.addEventListener("click",addExpenseToTotal,false);
 		res.addEventListener("click",resetText,false);
 	</script>
