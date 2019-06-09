@@ -5,25 +5,23 @@
 	<meta http-equiv="X-UA_Compatible" content="IE=edge">
 	<title>Personal Expense</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<style type="text/css">
-		body{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-	<h1 id="headingTotal">0</h1>
+	<h1>Enter the amount of Expense :</h1>
 	<input id="inputAmount" type="text"></input>
-	<button id="btnAddExpense">+</button>
+	<br>
+	<div class="button">
+		<button id="btnAddExpense">Add</button>
+		<button id="btnReset">Reset</button>
+	</div>
+	<h2>Total Expense:</h2>
+	<h3 id="headingTotal">0</h3>
+	<br>
 	<script>
-		//get the heading element
 		const headingEl=document.querySelector("#headingTotal");
 		let totalExpense = 0;
-
+		const res=document.querySelector("#btnReset");
 		// set the headingElement to TotalExpense
 		headingEl.textContent=totalExpense;
 		console.log(totalExpense);
@@ -32,12 +30,17 @@
 			const textAmount=inputElement.value;
 			const expense=parseInt(textAmount, 10);
 			totalExpense+=expense;
-			// console.log(totalExpense);
-			//set the heading element to to Total Expense.
 			headingEl.textContent=totalExpense;
+		}
+		function resetText()
+		{
+			headingEl.textContent=0;
+			document.getElementById("inputAmount").value="0";
+			totalExpense=0;
 		}
 		const element=document.querySelector("#btnAddExpense");
 		element.addEventListener("click",addExpenseToTotal,false);
+		res.addEventListener("click",resetText,false);
 	</script>
 </body>
 </html>
