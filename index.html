@@ -7,10 +7,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
+<header>
+	PERSONAL EXPENSE WEBAPP
+</header>
 <body>
-	<h1 align="center">Enter the amount of Expense :</h1>
+	
+	<h3 id="amount">Amount</h3>
 	<input id="inputAmount" type="text">
 	<br>
+	<h3 id="description">Description</h3>
 	<input id="descElement" type="text">
 	<br>
 	<div class="button">
@@ -20,6 +25,7 @@
 	<h2>Total Expense:</h2>
 	<h3 id="headingTotal">0</h3>
 	<br>
+	<div id="expenseTable"></div>
 	<script>
 		//get the heading element
 		const headingEl=document.querySelector("#headingTotal");
@@ -27,21 +33,22 @@
 		const inputDescEl=document.querySelector("#descElement");
 		//get the add button selector
 		const element=document.querySelector("#btnAddExpense");
-		
 		//get the reset button selector
 		const res=document.querySelector("#btnReset");
 		//select the inputAmount text selector
 		const inputElement=document.querySelector("#inputAmount");
+		//get the ref to table
+		const expenseTableEl=document.querySelector("#expenseTable");
 		//initialize total expense to zero initially
 		let totalExpense = 0;
 		//set the heading element to totalExpense
 		headingEl.textContent=totalExpense;
-
 		//all expenses at One Place
 		const allExpenses=[];
 		//onButtonClick add inputAmount to TotalExpense
 		function addExpenseToTotal()
 		{
+			//creating empty object
 			const expenseItem={};
 			//read value from inputAmount
 			const textAmount=inputElement.value;
@@ -49,18 +56,22 @@
 			const expense=parseInt(textAmount, 10);
 			//read the description from inputDesc
 			const textDesc=inputDescEl.value;
-			//put it in an object
+			//put it in an object with attributes desc and amount
 			expenseItem.desc=textDesc;
 			expenseItem.amount=expense;
-
 			allExpenses.push(expenseItem);
-			
-			console.clear();
-			console.table(allExpenses);
 			//add that value to total expense
 			totalExpense+=expense;
+			//writing some templates
+			const someText=`The expense for this month is : ${totalExpense}`;
 			//set the heading content to total expense
 			headingEl.textContent=totalExpense;
+			//show the table here
+			const allExpenseHTML = allExpenses.map(expense => {					return `<div class="menu"> ${expense.desc} :: ${expense.amount} </div>`
+			});
+
+			const final_string=allExpenseHTML.join("");
+			expenseTableEl.innerHTML=final_string;
 		}
 		function resetText()
 		{
@@ -68,9 +79,12 @@
 			document.getElementById("inputAmount").value="0";
 			document.getElementById("descElement").value="";
 			totalExpense=0;
+			expenseTableEl.innerHTML="";
 		}
-		element.addEventListener("click",addExpenseToTotal,false);
+		
+  		element.addEventListener("click",addExpenseToTotal,false);
 		res.addEventListener("click",resetText,false);
+
 	</script>
 </body>
 </html>

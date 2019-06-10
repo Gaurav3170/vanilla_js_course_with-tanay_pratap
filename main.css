@@ -9,9 +9,13 @@ body
 	align-items: center;
 	height: 100vh;
 }
-h1{
+header
+{
+	color: #fdf;
 	font-family: monospace;
-	color: #111;
+	height:100px;
+	font-size: 40px;
+	font-weight: 100px;
 }
 h2
 {
@@ -20,4 +24,13 @@ h2
 h3
 {
 	color: #ddd;
+}
+.menu
+{
+	color: #fdf;
+	display: block;
+}
+#inputAmount,#descElement
+{
+	border-radius: 2px;
 }
